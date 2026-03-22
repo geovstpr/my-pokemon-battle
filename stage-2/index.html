@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stage 2 — Battle</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <header>
+    <h1>⚔️ BATTLE</h1>
+    <a href="../stage-1/index.html" class="back-link">← Back to Stage 1</a>
+  </header>
+
+  <main id="battle-main">
+
+    <!-- HP BARS -->
+    <div class="hp-section">
+      <div class="hp-block">
+        <span class="hp-name" id="player-name">—</span>
+        <div class="hp-bar-wrap">
+          <div class="hp-bar player" id="player-hp-bar"></div>
+        </div>
+        <span class="hp-val" id="player-hp-val">—</span>
+      </div>
+
+      <span class="vs">VS</span>
+
+      <div class="hp-block">
+        <span class="hp-name" id="opponent-name">—</span>
+        <div class="hp-bar-wrap">
+          <div class="hp-bar opponent" id="opponent-hp-bar"></div>
+        </div>
+        <span class="hp-val" id="opponent-hp-val">—</span>
+      </div>
+    </div>
+
+    <!-- ARENA -->
+    <div class="arena">
+      <!-- Opponent row (fixed) -->
+      <div class="arena-label opponent-label">OPPONENT (fixed)</div>
+      <div class="arena-row" id="opponent-row">
+        <div class="arena-cell" data-pos="1"></div>
+        <div class="arena-cell" data-pos="2"></div>
+        <div class="arena-cell" data-pos="3"></div>
+      </div>
+
+      <div class="arena-vs">↓ ATTACKS ↓</div>
+
+      <!-- Player row (moves with ← →) -->
+      <div class="arena-label player-label">PLAYER (← → to move)</div>
+      <div class="arena-row" id="player-row">
+        <div class="arena-cell" data-pos="1"></div>
+        <div class="arena-cell" data-pos="2"></div>
+        <div class="arena-cell" data-pos="3"></div>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <div class="moves-panel" id="moves-panel">
+        <!-- Move buttons rendered by JS -->
+      </div>
+      <button id="definitive-btn" class="definitive-btn" disabled>
+        💀 Phantom Ambush
+        <span class="one-use">(1 use)</span>
+      </button>
+    </div>
+
+    <!-- BATTLE LOG -->
+    <div class="log-wrap">
+      <div class="log-label">BATTLE LOG</div>
+      <div id="battle-log" class="battle-log"></div>
+    </div>
+
+    <!-- END SCREEN (hidden until battle ends) -->
+    <div id="end-screen" class="end-screen hidden">
+      <div id="end-message" class="end-message"></div>
+      <button id="battle-again-btn">Battle Again 🔄</button>
+    </div>
+
+  </main>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

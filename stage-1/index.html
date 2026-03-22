@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stage 1 — Trainer Card</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <header>
+    <h1>TRAINER CARD</h1>
+    <div id="trainer-info">
+      <!-- Trainer info rendered by JS -->
+    </div>
+  </header>
+
+  <main>
+    <div class="battle-row">
+
+      <!-- PLAYER SIDE -->
+      <section id="player-side" class="pokemon-card">
+        <h2>Your Pokémon</h2>
+        <div id="player-content" class="card-content">
+          <!-- Rendered by render.js -->
+        </div>
+      </section>
+
+      <!-- OPPONENT SIDE -->
+      <section id="opponent-side" class="pokemon-card">
+        <h2>Opponent</h2>
+
+        <div class="search-area">
+          <input
+            type="text"
+            id="opponent-search"
+            placeholder="Search a Pokémon..."
+            autocomplete="off"
+          >
+          <div id="search-error" class="error-msg hidden"></div>
+        </div>
+
+        <div id="opponent-content" class="card-content">
+          <p class="placeholder">Search for an opponent above.</p>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="go-battle-wrap">
+      <button id="go-battle-btn" disabled>Go to Battle ⚔️</button>
+    </div>
+  </main>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
