@@ -44,19 +44,16 @@ function renderArena(state) {
     }
   });
 
-  // Opponent row — fixed at pos 1
+  // Opponent row — fixed at center
   const oppCells = document.querySelectorAll('#opponent-row .arena-cell');
   oppCells.forEach(cell => {
-    const pos = parseInt(cell.dataset.pos);
     cell.className = 'arena-cell';
     cell.innerHTML = '';
-    if (pos === 1) {
-      if (state.opponent?.sprite) {
-        const img = document.createElement('img');
-        img.src = state.opponent.sprite;
-        img.alt = state.opponent.name;
-        cell.appendChild(img);
-      }
+    if (state.opponent?.sprite) {
+      const img = document.createElement('img');
+      img.src = state.opponent.sprite;
+      img.alt = state.opponent.name;
+      cell.appendChild(img);
     }
   });
 }
@@ -104,11 +101,13 @@ export function hideEndScreen() {
 // ========== BUILD MOVE BUTTONS ==========
 export function buildMoveButtons(moves, onMoveFire) {
   const panel = document.getElementById('moves-panel');
+  const keys  = ['W', 'A', 'S', 'D'];
   panel.innerHTML = '';
-  moves.forEach(move => {
+  moves.forEach((move, index) => {
     const btn = document.createElement('button');
     btn.className = 'move-btn';
     btn.innerHTML = `
+      <span class="move-key">${keys[index]}</span>
       ${move.name}
       <span class="move-power">PWR: ${move.power ?? '--'}</span>
       <div class="cooldown-bar" style="width:0%"></div>

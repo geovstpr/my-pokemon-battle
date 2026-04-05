@@ -20,12 +20,25 @@ import {
 // ========== KEYBOARD HANDLER ==========
 function onKeyDown(e) {
   if (state.phase !== 'fighting') return;
-  if (state.locked) return;
 
-  if (e.key === 'ArrowLeft'  && state.playerPosition > 1) state.playerPosition--;
-  if (e.key === 'ArrowRight' && state.playerPosition < 3) state.playerPosition++;
+  // ── MOVEMENT: arrow keys ──
+  if (!state.locked) {
+    if (e.key === 'ArrowLeft'  && state.playerPosition > 1) state.playerPosition--;
+    if (e.key === 'ArrowRight' && state.playerPosition < 3) state.playerPosition++;
+    render(state);
+  }
 
-  render(state);
+  // ── ATTACKS: WASD keys ──
+  const moveButtons = document.querySelectorAll('.move-btn');
+  if (e.key === 'w' || e.key === 'W') moveButtons[0]?.click();
+  if (e.key === 'a' || e.key === 'A') moveButtons[1]?.click();
+  if (e.key === 's' || e.key === 'S') moveButtons[2]?.click();
+  if (e.key === 'd' || e.key === 'D') moveButtons[3]?.click();
+
+  // ── DEFINITIVE MOVE: Q key ──
+  if (e.key === 'q' || e.key === 'Q') {
+    document.getElementById('definitive-btn')?.click();
+  }
 }
 
 // ========== CHECK END WRAPPER ==========

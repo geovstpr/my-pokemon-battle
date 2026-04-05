@@ -232,6 +232,17 @@ main {
   background: var(--player);
 }
 
+.move-key {
+  display: inline-block;
+  background: var(--player);
+  color: var(--bg);
+  font-family: var(--pixel);
+  font-size: 0.38rem;
+  padding: 0.2rem 0.4rem;
+  margin-right: 0.4rem;
+  border: 1px solid var(--text);
+}
+
 /* ========== DEFINITIVE BUTTON ========== */
 #definitive-btn {
   background: var(--surface);
