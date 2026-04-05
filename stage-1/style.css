@@ -1,0 +1,194 @@
+:root {
+  --type-color: #705898;   /* ghost purple — se sobreescribe desde JS */
+  --bg:         #0D0B14;   /* fondo muy oscuro */
+  --surface:    #1A1625;   /* tarjetas */
+  --border:     #2E2640;   /* bordes */
+  --text:        #E0D6F5;  /* texto principal */
+  --muted:      #7A6E9A;   /* texto secundario */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+header {
+  background: var(--surface);
+  border-bottom: 2px solid var(--type-color);
+  padding: 1.5rem 2rem;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  color: var(--type-color);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+#trainer-info {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+#trainer-info span {
+  color: var(--text);
+  font-weight: 600;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.battle-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+#player-side, #opponent-side {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+#player-side {
+  border-top: 3px solid var(--type-color);
+}
+
+#opponent-side {
+  border-top: 3px solid #E84040;
+}
+
+#player-side h2 {
+  color: var(--type-color);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+#opponent-side h2 {
+  color: #E84040;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+
+/* ── CONTENIDO DEL POKÉMON ── */
+#player-content, #opponent-content {
+  text-align: center;
+}
+
+#player-content img, #opponent-content img {
+  width: 120px;
+  height: 120px;
+  image-rendering: pixelated;
+}
+
+#player-content h3 {
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  color: var(--type-color);
+  margin: 0.5rem 0;
+}
+
+#opponent-content h3 {
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  color: #E84040;
+  margin: 0.5rem 0;
+}
+
+/* ── TYPE TAGS ── */
+.type-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0.2rem;
+  background: var(--border);
+  color: var(--text);
+}
+
+/* ── STATS Y MOVES ── */
+#player-content p, #opponent-content p {
+  font-size: 0.82rem;
+  color: var(--muted);
+  text-align: left;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid var(--border);
+  text-transform: capitalize;
+}
+
+/* ── BUSCADOR ── */
+#opponent-search {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  outline: none;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s;
+}
+
+#opponent-search:focus {
+  border-color: #E84040;
+}
+
+#search-error {
+  color: #E84040;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ── BOTÓN GO TO BATTLE ── */
+#go-battle-btn {
+  display: block;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  background: var(--type-color);
+  color: #fff;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: opacity 0.2s;
+}
+
+#go-battle-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+#go-battle-btn:not(:disabled):hover {
+  opacity: 0.85;
+}
