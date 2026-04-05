@@ -1,68 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* ========== VARIABLES ========== */
 :root {
-  --type-color: #705898;   /* ghost purple — se sobreescribe desde JS */
-  --bg:         #0D0B14;   /* fondo muy oscuro */
-  --surface:    #1A1625;   /* tarjetas */
-  --border:     #2E2640;   /* bordes */
-  --text:        #E0D6F5;  /* texto principal */
-  --muted:      #7A6E9A;   /* texto secundario */
+  --pixel:      'Press Start 2P', monospace;
+  --type-color: #705898;
+  --bg:         #0D0514;
+  --surface:    #1A0A2E;
+  --border:     #2E2640;
+  --text:       #D0C8F0;
+  --muted:      #7868A8;
+  --enemy:      #E84040;
+  --green:      #42C97A;
 }
 
+/* ========== RESET ========== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  image-rendering: pixelated;
 }
 
+/* ========== BODY ========== */
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Segoe UI', sans-serif;
+  font-family: var(--pixel);
+  font-size: 0.6rem;
   min-height: 100vh;
+  padding-bottom: 3rem;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
 }
 
+/* ========== HEADER ========== */
 header {
   background: var(--surface);
   border-bottom: 2px solid var(--type-color);
-  padding: 1.5rem 2rem;
+  padding: 1.2rem 2rem;
   text-align: center;
 }
 
 header h1 {
-  font-size: 1.5rem;
+  font-size: 0.85rem;
   color: var(--type-color);
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
+  line-height: 2;
 }
 
 #trainer-info {
-  font-size: 0.9rem;
+  font-size: 0.5rem;
   color: var(--muted);
+  line-height: 2;
+  letter-spacing: 0.05rem;
 }
 
 #trainer-info span {
   color: var(--text);
-  font-weight: 600;
 }
 
+/* ========== LAYOUT ========== */
 main {
-  max-width: 960px;
-  margin: 2rem auto;
+  max-width: 900px;
+  margin: 1.5rem auto;
   padding: 0 1.5rem;
 }
 
 .battle-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
 }
 
+@media (max-width: 600px) {
+  .battle-row { grid-template-columns: 1fr; }
+}
+
+/* ========== CARDS ========== */
 #player-side, #opponent-side {
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.5rem;
+  border: 2px solid var(--border);
+  padding: 1.2rem;
 }
 
 #player-side {
@@ -70,31 +95,28 @@ main {
 }
 
 #opponent-side {
-  border-top: 3px solid #E84040;
+  border-top: 3px solid var(--enemy);
 }
 
 #player-side h2 {
-  color: var(--type-color);
-  font-size: 0.75rem;
+  font-size: 0.5rem;
   letter-spacing: 0.2em;
-  text-transform: uppercase;
+  color: var(--type-color);
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border);
 }
 
 #opponent-side h2 {
-  color: #E84040;
-  font-size: 0.75rem;
+  font-size: 0.5rem;
   letter-spacing: 0.2em;
-  text-transform: uppercase;
+  color: var(--enemy);
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border);
 }
 
-
-/* ── CONTENIDO DEL POKÉMON ── */
+/* ========== POKEMON CONTENT ========== */
 #player-content, #opponent-content {
   text-align: center;
 }
@@ -102,85 +124,89 @@ main {
 #player-content img, #opponent-content img {
   width: 120px;
   height: 120px;
-  image-rendering: pixelated;
+  margin-bottom: 0.8rem;
 }
 
 #player-content h3 {
-  font-size: 1.1rem;
+  font-size: 0.75rem;
   text-transform: capitalize;
   color: var(--type-color);
-  margin: 0.5rem 0;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.1em;
 }
 
 #opponent-content h3 {
-  font-size: 1.1rem;
+  font-size: 0.75rem;
   text-transform: capitalize;
-  color: #E84040;
-  margin: 0.5rem 0;
+  color: var(--enemy);
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.1em;
 }
 
-/* ── TYPE TAGS ── */
+/* ========== TYPE TAGS ========== */
 .type-tag {
   display: inline-block;
-  font-size: 0.7rem;
-  padding: 0.2rem 0.7rem;
-  border-radius: 20px;
+  font-size: 0.45rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   margin: 0.2rem;
-  background: var(--border);
-  color: var(--text);
+  background: var(--bg);
+  color: var(--muted);
 }
 
-/* ── STATS Y MOVES ── */
+/* ========== STATS AND MOVES ========== */
 #player-content p, #opponent-content p {
-  font-size: 0.82rem;
+  font-size: 0.5rem;
   color: var(--muted);
   text-align: left;
-  padding: 0.25rem 0;
+  padding: 0.4rem 0;
   border-bottom: 1px solid var(--border);
   text-transform: capitalize;
+  line-height: 2;
+  letter-spacing: 0.05em;
 }
 
-/* ── BUSCADOR ── */
+/* ========== SEARCH ========== */
 #opponent-search {
   width: 100%;
   background: var(--bg);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   color: var(--text);
-  padding: 0.6rem 1rem;
-  font-size: 0.9rem;
-  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  font-family: var(--pixel);
+  font-size: 0.42rem;
   outline: none;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.05em;
   transition: border-color 0.2s;
 }
 
 #opponent-search:focus {
-  border-color: #E84040;
+  border-color: var(--enemy);
 }
 
 #search-error {
-  color: #E84040;
-  font-size: 0.8rem;
+  color: var(--enemy);
+  font-size: 0.42rem;
   margin-bottom: 0.5rem;
+  line-height: 1.8;
 }
 
-/* ── BOTÓN GO TO BATTLE ── */
+/* ========== GO TO BATTLE BUTTON ========== */
 #go-battle-btn {
   display: block;
   width: 100%;
-  max-width: 960px;
-  margin: 0 auto;
   background: var(--type-color);
-  color: #fff;
+  color: var(--bg);
   border: none;
   padding: 1rem;
-  font-size: 1rem;
+  font-family: var(--pixel);
+  font-size: 0.55rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   cursor: pointer;
-  border-radius: 6px;
   transition: opacity 0.2s;
 }
 
@@ -190,5 +216,5 @@ main {
 }
 
 #go-battle-btn:not(:disabled):hover {
-  opacity: 0.85;
+  opacity: 0.8;
 }
