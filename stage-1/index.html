@@ -3,32 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stage 1 — Trainer Card</title>
+  <title>Stage 1 -- Trainer Card</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
+  <!-- ========== HEADER ========== -->
   <header>
     <h1>TRAINER CARD</h1>
     <div id="trainer-info"></div>
   </header>
 
+  <!-- ========== MAIN ========== -->
   <main>
     <div class="battle-row">
 
-      <!-- LADO DEL JUGADOR -->
+      <!-- PLAYER SIDE -->
       <section id="player-side">
-        <h2>Your Pokémon</h2>
+        <h2>Your Pokemon</h2>
         <div id="player-content"></div>
       </section>
 
-      <!-- LADO DEL OPONENTE -->
+      <!-- OPPONENT SIDE -->
       <section id="opponent-side">
         <h2>Opponent</h2>
         <input
           type="text"
           id="opponent-search"
-          placeholder="Search a Pokémon..."
+          placeholder="Search a Pokemon..."
           autocomplete="off"
         >
         <div id="search-error"></div>
@@ -39,9 +41,12 @@
 
     </div>
 
+    <!-- ========== GO TO BATTLE BUTTON ========== -->
     <button id="go-battle-btn" disabled>Go to Battle</button>
   </main>
 
+  <!-- ========== SCRIPTS ========== -->
   <script type="module" src="./main.js"></script>
+
 </body>
 </html>

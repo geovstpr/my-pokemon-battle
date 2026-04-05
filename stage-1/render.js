@@ -1,6 +1,9 @@
+// ========== RENDER ==========
+// All DOM writes live here. Nothing else touches the DOM.
+
 import TRAINER from '../trainer.config.js';
 
-// Colores por tipo de Pokémon
+// ========== TYPE COLOR MAP ==========
 const TYPE_COLORS = {
   fire:     '#FF6030',
   water:    '#6890F0',
@@ -22,11 +25,12 @@ const TYPE_COLORS = {
   fairy:    '#EE99AC',
 };
 
+// ========== GET TYPE COLOR ==========
 export function typeColor(typeName) {
   return TYPE_COLORS[typeName] ?? '#888';
 }
 
-// Muestra el Trainer Card en el header
+// ========== RENDER TRAINER CARD ==========
 export function renderTrainerCard() {
   const el = document.getElementById('trainer-info');
   el.innerHTML = `
@@ -36,13 +40,13 @@ export function renderTrainerCard() {
   `;
 }
 
-// Muestra un skeleton de carga
+// ========== RENDER SKELETON ==========
 export function renderSkeleton(containerId) {
   const el = document.getElementById(containerId);
   el.innerHTML = `<p>Loading...</p>`;
 }
 
-// Muestra un Pokémon completo en pantalla
+// ========== RENDER POKEMON ==========
 export function renderPokemon(containerId, pokemon, moves, side) {
   const el = document.getElementById(containerId);
 
@@ -63,7 +67,7 @@ export function renderPokemon(containerId, pokemon, moves, side) {
     .join('');
 
   const movesHtml = moves
-    .map(m => `<p>${m.name} — PWR: ${m.power ?? '—'}</p>`)
+    .map(m => `<p>${m.name} -- PWR: ${m.power ?? '--'}</p>`)
     .join('');
 
   const displayName = (side === 'player' && TRAINER.nickname)
@@ -79,19 +83,19 @@ export function renderPokemon(containerId, pokemon, moves, side) {
   `;
 }
 
-// Muestra un error en el buscador
+// ========== RENDER SEARCH ERROR ==========
 export function renderSearchError(message) {
   const el = document.getElementById('search-error');
   el.textContent = message;
 }
 
-// Limpia el error del buscador
+// ========== CLEAR SEARCH ERROR ==========
 export function clearSearchError() {
   const el = document.getElementById('search-error');
   el.textContent = '';
 }
 
-// Activa o desactiva el botón Go to Battle
+// ========== SET GO TO BATTLE BUTTON ==========
 export function setGoBattleBtn(enabled) {
   document.getElementById('go-battle-btn').disabled = !enabled;
 }

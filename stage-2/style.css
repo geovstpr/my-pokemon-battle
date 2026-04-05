@@ -330,6 +330,24 @@ main {
   transition: background 0.1s;
 }
 
+/* ========== CHOOSE POKEMON BUTTON ========== */
+#choose-pokemon-btn {
+  background: var(--surface);
+  border: 2px solid var(--muted);
+  color: var(--muted);
+  padding: 0.8rem 1.5rem;
+  font-family: var(--pixel);
+  font-size: 0.5rem;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  transition: background 0.1s;
+}
+
+#choose-pokemon-btn:hover {
+  background: var(--muted);
+  color: var(--bg);
+}
+
 #battle-again-btn:hover {
   background: var(--player);
   color: var(--bg);

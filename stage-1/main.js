@@ -1,3 +1,6 @@
+// ========== MAIN ==========
+// Entry point for Stage 1. Wires everything together.
+
 import TRAINER from '../trainer.config.js';
 import { fetchPokemon, fetchMoves } from './api.js';
 import {
@@ -9,16 +12,16 @@ import {
   setGoBattleBtn,
 } from './render.js';
 
-// ── ESTADO ──
+// ========== STATE ==========
 const state = {
   player:   null,
   opponent: null,
 };
 
-// ── ABORT CONTROLLER ──
+// ========== ABORT CONTROLLER ==========
 let searchController = null;
 
-// ── DEBOUNCE ──
+// ========== DEBOUNCE ==========
 function debounce(fn, delay) {
   let timer;
   return (...args) => {
@@ -27,7 +30,7 @@ function debounce(fn, delay) {
   };
 }
 
-// ── CARGAR GENGAR AL INICIO ──
+// ========== LOAD FAVORITE POKEMON ==========
 async function loadFavorite() {
   renderSkeleton('player-content');
   try {
@@ -42,7 +45,7 @@ async function loadFavorite() {
   }
 }
 
-// ── BUSCAR OPONENTE ──
+// ========== SEARCH OPPONENT ==========
 async function searchOpponent(query) {
   const q = query.trim().toLowerCase();
   if (!q) return;
@@ -65,17 +68,17 @@ async function searchOpponent(query) {
   } catch (err) {
     if (err.name === 'AbortError') return;
     document.getElementById('opponent-content').innerHTML =
-      `<p>No Pokémon found.</p>`;
+      `<p>No Pokemon found.</p>`;
     renderSearchError(`"${q}" not found.`);
   }
 }
 
-// ── VERIFICAR SI AMBOS ESTÁN LISTOS ──
+// ========== CHECK READY ==========
 function checkReady() {
   setGoBattleBtn(!!(state.player && state.opponent));
 }
 
-// ── IR A LA BATALLA ──
+// ========== GO TO BATTLE ==========
 function goToBattle() {
   if (!state.player || !state.opponent) return;
 
@@ -101,7 +104,7 @@ function goToBattle() {
   window.location.href = '../stage-2/index.html';
 }
 
-// ── INIT ──
+// ========== INIT ==========
 document.addEventListener('DOMContentLoaded', () => {
   renderTrainerCard();
   loadFavorite();

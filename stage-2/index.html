@@ -3,40 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stage 2 — Battle</title>
+  <title>Stage 2 -- Battle</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
+  <!-- ========== HEADER ========== -->
   <header>
-    <h1>⚔️ BATTLE</h1>
-    <a href="../stage-1/index.html">← Back</a>
+    <h1>BATTLE</h1>
+    <a href="../stage-1/index.html">Back</a>
   </header>
 
-  <main>
+  <!-- ========== MAIN ========== -->
+  <main id="battle-main">
 
-    <!-- BARRAS DE HP -->
+    <!-- HP BARS -->
     <div class="hp-section">
       <div class="hp-block">
-        <span class="hp-name" id="player-name">—</span>
+        <span class="hp-name" id="player-name">--</span>
         <div class="hp-bar-wrap">
           <div class="hp-bar player" id="player-hp-bar"></div>
         </div>
-        <span class="hp-val" id="player-hp-val">—</span>
+        <span class="hp-val" id="player-hp-val">--</span>
       </div>
 
       <span class="vs">VS</span>
 
       <div class="hp-block">
-        <span class="hp-name" id="opponent-name">—</span>
+        <span class="hp-name" id="opponent-name">--</span>
         <div class="hp-bar-wrap">
           <div class="hp-bar opponent" id="opponent-hp-bar"></div>
         </div>
-        <span class="hp-val" id="opponent-hp-val">—</span>
+        <span class="hp-val" id="opponent-hp-val">--</span>
       </div>
     </div>
 
-    <!-- ARENA -->
+    <!-- ========== ARENA ========== -->
     <div class="arena">
       <div class="arena-label opponent-label">OPPONENT (fixed)</div>
       <div class="arena-row" id="opponent-row">
@@ -45,9 +47,9 @@
         <div class="arena-cell" data-pos="3"></div>
       </div>
 
-      <div class="arena-vs">↓ ATTACKS ↓</div>
+      <div class="arena-vs">ATTACKS</div>
 
-      <div class="arena-label player-label">PLAYER (← → to move)</div>
+      <div class="arena-label player-label">PLAYER (left right to move)</div>
       <div class="arena-row" id="player-row">
         <div class="arena-cell" data-pos="1"></div>
         <div class="arena-cell" data-pos="2"></div>
@@ -55,7 +57,7 @@
       </div>
     </div>
 
-    <!-- CONTROLES -->
+    <!-- ========== CONTROLS ========== -->
     <div class="controls">
       <div class="moves-panel" id="moves-panel"></div>
       <button id="definitive-btn" disabled>
@@ -64,20 +66,23 @@
       </button>
     </div>
 
-    <!-- LOG DE BATALLA -->
+    <!-- ========== BATTLE LOG ========== -->
     <div class="log-wrap">
       <div class="log-label">BATTLE LOG</div>
       <div id="battle-log"></div>
     </div>
 
-    <!-- PANTALLA FINAL -->
+    <!-- ========== END SCREEN ========== -->
     <div id="end-screen" class="hidden">
       <div id="end-message"></div>
-      <button id="battle-again-btn">Battle Again </button>
+      <button id="battle-again-btn">Battle Again</button>
+      <button id="choose-pokemon-btn">Choose Another Pokemon</button>
     </div>
 
   </main>
 
+  <!-- ========== SCRIPTS ========== -->
   <script type="module" src="./main.js"></script>
+
 </body>
 </html>
