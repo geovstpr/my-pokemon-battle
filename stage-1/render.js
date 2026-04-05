@@ -1,9 +1,6 @@
-// stage-1/render.js
-// All DOM writes live here. Nothing else touches the DOM.
-
 import TRAINER from '../trainer.config.js';
 
-// ── TYPE COLOR MAP ──
+// Colores por tipo de Pokémon
 const TYPE_COLORS = {
   fire:     '#FF6030',
   water:    '#6890F0',
@@ -12,10 +9,10 @@ const TYPE_COLORS = {
   psychic:  '#F85888',
   dragon:   '#7038F8',
   ghost:    '#705898',
+  poison:   '#A040A0',
   normal:   '#A8A878',
   ice:      '#98D8D8',
   fighting: '#C03028',
-  poison:   '#A040A0',
   ground:   '#E0C068',
   flying:   '#A890F0',
   bug:      '#A8B820',
@@ -25,12 +22,11 @@ const TYPE_COLORS = {
   fairy:    '#EE99AC',
 };
 
-/** Get hex color for a Pokémon type */
 export function typeColor(typeName) {
   return TYPE_COLORS[typeName] ?? '#888';
 }
 
-/** Render the Trainer Card in the header */
+// Muestra el Trainer Card en el header
 export function renderTrainerCard() {
   const el = document.getElementById('trainer-info');
   el.innerHTML = `
@@ -40,29 +36,19 @@ export function renderTrainerCard() {
   `;
 }
 
-/** Show a loading skeleton inside a container */
+// Muestra un skeleton de carga
 export function renderSkeleton(containerId) {
   const el = document.getElementById(containerId);
-  el.innerHTML = `
-    <div class="skeleton skeleton-sprite"></div>
-    <div class="skeleton skeleton-line w60"></div>
-    <div class="skeleton skeleton-line w80"></div>
-    <div class="skeleton skeleton-line w40"></div>
-    <div class="skeleton skeleton-line w80"></div>
-    <div class="skeleton skeleton-line w60"></div>
-  `;
+  el.innerHTML = `<p>Loading...</p>`;
 }
 
-/** Render a loaded Pokémon into a container.
- *  side: 'player' | 'opponent'
- */
+// Muestra un Pokémon completo en pantalla
 export function renderPokemon(containerId, pokemon, moves, side) {
   const el = document.getElementById(containerId);
 
   const primaryType = pokemon.types[0].type.name;
   const color = typeColor(primaryType);
 
-  // Apply type color to CSS variable (only for player side)
   if (side === 'player') {
     document.documentElement.style.setProperty('--type-color', color);
   }
@@ -71,59 +57,41 @@ export function renderPokemon(containerId, pokemon, moves, side) {
     .map(t => `<span class="type-tag">${t.type.name}</span>`)
     .join('');
 
-  // Stats we care about
-  const statNames = { hp: 'HP', attack: 'ATK', defense: 'DEF', speed: 'SPD' };
   const statsHtml = pokemon.stats
-    .filter(s => Object.keys(statNames).includes(s.stat.name))
-    .map(s => {
-      const pct = Math.min((s.base_stat / 255) * 100, 100).toFixed(1);
-      return `
-        <div class="stat-row">
-          <span class="stat-label">${statNames[s.stat.name]}</span>
-          <div class="stat-bar-wrap">
-            <div class="stat-bar" style="width:${pct}%; background:${side === 'player' ? color : '#E84040'}"></div>
-          </div>
-          <span class="stat-val">${s.base_stat}</span>
-        </div>`;
-    }).join('');
+    .filter(s => ['hp', 'attack', 'defense', 'speed'].includes(s.stat.name))
+    .map(s => `<p>${s.stat.name}: ${s.base_stat}</p>`)
+    .join('');
 
-  const movesHtml = moves.map(m => `
-    <div class="move-item">
-      <span>${m.name}</span>
-      <span class="move-power">${m.power != null ? `PWR ${m.power}` : 'status'}</span>
-    </div>`).join('');
+  const movesHtml = moves
+    .map(m => `<p>${m.name} — PWR: ${m.power ?? '—'}</p>`)
+    .join('');
 
   const displayName = (side === 'player' && TRAINER.nickname)
     ? TRAINER.nickname
     : pokemon.name;
 
   el.innerHTML = `
-    <div class="pokemon-info">
-      <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
-      <div class="poke-name" style="color:${side === 'player' ? color : '#E84040'}">${displayName}</div>
-      <div class="type-tags">${typeTags}</div>
-      <div class="stats">${statsHtml}</div>
-      <div class="moves-title">Moves</div>
-      <div class="moves-list">${movesHtml}</div>
-    </div>
+    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+    <h3>${displayName}</h3>
+    <div>${typeTags}</div>
+    <div>${statsHtml}</div>
+    <div>${movesHtml}</div>
   `;
 }
 
-/** Show an inline error in the opponent search area */
+// Muestra un error en el buscador
 export function renderSearchError(message) {
   const el = document.getElementById('search-error');
   el.textContent = message;
-  el.classList.remove('hidden');
 }
 
-/** Clear the opponent search error */
+// Limpia el error del buscador
 export function clearSearchError() {
   const el = document.getElementById('search-error');
   el.textContent = '';
-  el.classList.add('hidden');
 }
 
-/** Enable or disable the Go to Battle button */
+// Activa o desactiva el botón Go to Battle
 export function setGoBattleBtn(enabled) {
   document.getElementById('go-battle-btn').disabled = !enabled;
 }

@@ -10,46 +10,36 @@
 
   <header>
     <h1>TRAINER CARD</h1>
-    <div id="trainer-info">
-      <!-- Trainer info rendered by JS -->
-    </div>
+    <div id="trainer-info"></div>
   </header>
 
   <main>
     <div class="battle-row">
 
-      <!-- PLAYER SIDE -->
-      <section id="player-side" class="pokemon-card">
+      <!-- LADO DEL JUGADOR -->
+      <section id="player-side">
         <h2>Your Pokémon</h2>
-        <div id="player-content" class="card-content">
-          <!-- Rendered by render.js -->
-        </div>
+        <div id="player-content"></div>
       </section>
 
-      <!-- OPPONENT SIDE -->
-      <section id="opponent-side" class="pokemon-card">
+      <!-- LADO DEL OPONENTE -->
+      <section id="opponent-side">
         <h2>Opponent</h2>
-
-        <div class="search-area">
-          <input
-            type="text"
-            id="opponent-search"
-            placeholder="Search a Pokémon..."
-            autocomplete="off"
-          >
-          <div id="search-error" class="error-msg hidden"></div>
-        </div>
-
-        <div id="opponent-content" class="card-content">
-          <p class="placeholder">Search for an opponent above.</p>
+        <input
+          type="text"
+          id="opponent-search"
+          placeholder="Search a Pokémon..."
+          autocomplete="off"
+        >
+        <div id="search-error"></div>
+        <div id="opponent-content">
+          <p>Search for an opponent above.</p>
         </div>
       </section>
 
     </div>
 
-    <div class="go-battle-wrap">
-      <button id="go-battle-btn" disabled>Go to Battle ⚔️</button>
-    </div>
+    <button id="go-battle-btn" disabled>Go to Battle</button>
   </main>
 
   <script type="module" src="./main.js"></script>

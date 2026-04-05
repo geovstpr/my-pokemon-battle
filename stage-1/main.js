@@ -1,6 +1,3 @@
-// stage-1/main.js
-// Main logic: state, events, orchestration.
-
 import TRAINER from '../trainer.config.js';
 import { fetchPokemon, fetchMoves } from './api.js';
 import {
@@ -12,16 +9,16 @@ import {
   setGoBattleBtn,
 } from './render.js';
 
-// ── SINGLE STATE OBJECT ──
+// ── ESTADO ──
 const state = {
-  player:   null,   // { pokemon, moves }
-  opponent: null,   // { pokemon, moves }
+  player:   null,
+  opponent: null,
 };
 
-// ── ABORT CONTROLLER for opponent search ──
+// ── ABORT CONTROLLER ──
 let searchController = null;
 
-// ── DEBOUNCE helper (hand-written, not imported) ──
+// ── DEBOUNCE ──
 function debounce(fn, delay) {
   let timer;
   return (...args) => {
@@ -30,7 +27,7 @@ function debounce(fn, delay) {
   };
 }
 
-// ── LOAD FAVORITE POKÉMON on page load ──
+// ── CARGAR GENGAR AL INICIO ──
 async function loadFavorite() {
   renderSkeleton('player-content');
   try {
@@ -41,16 +38,15 @@ async function loadFavorite() {
     checkReady();
   } catch (err) {
     document.getElementById('player-content').innerHTML =
-      `<p style="color:#E84040;font-size:0.85rem;">Error loading your Pokémon: ${err.message}</p>`;
+      `<p>Error: ${err.message}</p>`;
   }
 }
 
-// ── OPPONENT SEARCH ──
+// ── BUSCAR OPONENTE ──
 async function searchOpponent(query) {
   const q = query.trim().toLowerCase();
   if (!q) return;
 
-  // Cancel previous in-flight request
   if (searchController) searchController.abort();
   searchController = new AbortController();
 
@@ -60,50 +56,45 @@ async function searchOpponent(query) {
   checkReady();
 
   try {
-    const pokemon = await fetchPokemon(q, searchController.signal);
-    const moves   = await fetchMoves(pokemon);
+    const pokemon  = await fetchPokemon(q, searchController.signal);
+    const moves    = await fetchMoves(pokemon);
     state.opponent = { pokemon, moves };
     renderPokemon('opponent-content', pokemon, moves, 'opponent');
-
-    // Save last opponent name to localStorage
     localStorage.setItem('lastOpponent', pokemon.name);
-
     checkReady();
   } catch (err) {
-    if (err.name === 'AbortError') return; // silently ignore cancelled requests
+    if (err.name === 'AbortError') return;
     document.getElementById('opponent-content').innerHTML =
-      `<p class="placeholder">No Pokémon found.</p>`;
-    renderSearchError(`"${q}" not found. Try another name.`);
+      `<p>No Pokémon found.</p>`;
+    renderSearchError(`"${q}" not found.`);
   }
 }
 
-// ── CHECK IF BOTH ARE READY ──
+// ── VERIFICAR SI AMBOS ESTÁN LISTOS ──
 function checkReady() {
   setGoBattleBtn(!!(state.player && state.opponent));
 }
 
-// ── GO TO BATTLE ──
+// ── IR A LA BATALLA ──
 function goToBattle() {
   if (!state.player || !state.opponent) return;
 
-  // Write all battle data to localStorage for Stage 2
   localStorage.setItem('battleData', JSON.stringify({
     player: {
-      name:     state.player.pokemon.name,
-      nickname: TRAINER.nickname,
-      sprite:   state.player.pokemon.sprites.front_default,
-      hp:       Math.floor(state.player.pokemon.stats.find(s => s.stat.name === 'hp').base_stat * 2.5),
-      attack:   state.player.pokemon.stats.find(s => s.stat.name === 'attack').base_stat,
-      types:    state.player.pokemon.types.map(t => t.type.name),
-      moves:    state.player.moves,
+      name:    state.player.pokemon.name,
+      sprite:  state.player.pokemon.sprites.front_default,
+      hp:      Math.floor(state.player.pokemon.stats.find(s => s.stat.name === 'hp').base_stat * 2.5),
+      attack:  state.player.pokemon.stats.find(s => s.stat.name === 'attack').base_stat,
+      types:   state.player.pokemon.types.map(t => t.type.name),
+      moves:   state.player.moves,
     },
     opponent: {
-      name:   state.opponent.pokemon.name,
-      sprite: state.opponent.pokemon.sprites.front_default,
-      hp:     Math.floor(state.opponent.pokemon.stats.find(s => s.stat.name === 'hp').base_stat * 2.5),
-      attack: state.opponent.pokemon.stats.find(s => s.stat.name === 'attack').base_stat,
-      types:  state.opponent.pokemon.types.map(t => t.type.name),
-      moves:  state.opponent.moves,
+      name:    state.opponent.pokemon.name,
+      sprite:  state.opponent.pokemon.sprites.front_default,
+      hp:      Math.floor(state.opponent.pokemon.stats.find(s => s.stat.name === 'hp').base_stat * 2.5),
+      attack:  state.opponent.pokemon.stats.find(s => s.stat.name === 'attack').base_stat,
+      types:   state.opponent.pokemon.types.map(t => t.type.name),
+      moves:   state.opponent.moves,
     },
   }));
 
@@ -115,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderTrainerCard();
   loadFavorite();
 
-  // Pre-fill last opponent from localStorage
   const lastOpponent = localStorage.getItem('lastOpponent');
   const searchInput  = document.getElementById('opponent-search');
   if (lastOpponent) {
@@ -123,13 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
     searchOpponent(lastOpponent);
   }
 
-  // Debounced search — 300ms
   const debouncedSearch = debounce(searchOpponent, 300);
   searchInput.addEventListener('input', (e) => {
     clearSearchError();
     debouncedSearch(e.target.value);
   });
 
-  // Go to Battle button
   document.getElementById('go-battle-btn').addEventListener('click', goToBattle);
 });
