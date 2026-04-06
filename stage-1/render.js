@@ -43,7 +43,15 @@ export function renderTrainerCard() {
 // ========== RENDER SKELETON ==========
 export function renderSkeleton(containerId) {
   const el = document.getElementById(containerId);
-  el.innerHTML = `<p>Loading...</p>`;
+  el.innerHTML = `
+    <div class="skeleton skeleton-sprite"></div>
+    <div class="skeleton skeleton-line w50"></div>
+    <div class="skeleton skeleton-line w30"></div>
+    <div class="skeleton skeleton-line w70"></div>
+    <div class="skeleton skeleton-line w60"></div>
+    <div class="skeleton skeleton-line w70"></div>
+    <div class="skeleton skeleton-line w60"></div>
+  `;
 }
 
 // ========== RENDER POKEMON ==========
