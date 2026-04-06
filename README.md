@@ -5,6 +5,9 @@
 ## Live URL
 https://geovstpr.github.io/my-pokemon-battle/
 
+## Video
+https://www.loom.com/share/1a86792d8e7a45f1beb5346edd7cd83d
+
 ---
 
 ## My Favorite Pokemon
